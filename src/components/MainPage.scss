@@ -1,0 +1,42 @@
+@import "./../assets/styles/colors";
+@import "./../assets/styles/fonts";
+
+.logoDiv {
+  margin: 16px;
+}
+.logo {
+  max-width: 100%;
+  max-height: 100%;
+}
+.mainHeader {
+  background: $bluePastel; 
+  padding: 0;
+  text-align: center;
+}
+.mainHeaderDescription {
+  font-family: $defaultFont;
+  font-size: $bigFontSize;
+}
+.menu {
+  background-color: $bluePastel;
+}
+.ant-layout-sider-trigger {
+  background-color: $bluePastel;
+}
+.ant-menu-sub.ant-menu-inline{
+  background-color: $bluePastel;
+
+}
+.ant-menu-item-selected {
+  background-color: $bluePastelDark;
+  color:white;
+}
+.ant-menu-inline .ant-menu-item::after {
+  border-right: 0px;
+}
+.ant-menu-item-active .ant-menu-item::after .ant-menu-item:hover .ant-menu-submenu-active {
+  color: aliceblue;
+  &:hover{
+    color: aliceblue;
+  }
+}

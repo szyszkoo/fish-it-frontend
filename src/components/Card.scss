@@ -1,0 +1,24 @@
+@import "./../assets/styles/colors";
+@import "./../assets/styles/fonts";
+
+.card {
+  margin: 15px;
+  height: 250px;
+  width: 250px;
+  background-color: $pinkPastel;
+  float: left;
+  transition: 0.5s ease;
+  &:hover {
+    background-color: $pinkPastelDark;
+  }
+  &:hover .cardDescription{
+    top: 30%;
+  }
+}
+.cardDescription {
+  font-family: $defaultFont;
+  font-size: $bigFontSize;
+  top: 40%;
+  text-align: center;
+  position: relative;
+}
