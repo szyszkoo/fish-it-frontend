@@ -29,7 +29,7 @@ export default class MainPage extends React.Component<IMainPageProps, IMainPageS
                 <Layout style={{ minHeight: '100vh' }}>
                     <Sider collapsible collapsed={this.state.isCollapsed} onCollapse={this.onCollapse} className="menu" >
                         <div className="logoDiv" >
-                            <img src={logo} className="logo" />
+                            <img src={logo} alt="" className="logo" />
                         </div>
                         <Menu defaultSelectedKeys={['1']} mode="inline" className="menu" >
                             <Menu.Item key="1" className="menu">

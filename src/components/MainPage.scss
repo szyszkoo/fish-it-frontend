@@ -28,15 +28,15 @@
 
 }
 .ant-menu-item-selected {
-  background-color: $bluePastelDark;
+  background-color: $bluePastelDark !important;
   color:white;
 }
 .ant-menu-inline .ant-menu-item::after {
   border-right: 0px;
 }
-.ant-menu-item-active .ant-menu-item::after .ant-menu-item:hover .ant-menu-submenu-active {
-  color: aliceblue;
-  &:hover{
-    color: aliceblue;
-  }
-}
+// .ant-menu-item-active .ant-menu-item::after .ant-menu-item:hover .ant-menu-submenu-active {
+//   color: aliceblue !important;
+//   &:hover{
+//     color: aliceblue !important;
+//   }
+// }
