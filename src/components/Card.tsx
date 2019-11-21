@@ -12,10 +12,8 @@ export interface ICardState {
   isHovering: boolean;
 }
 
+//TODO: re-write it as function component (use hooks)
 export default class Card extends React.Component<ICardProps, ICardState> {
-  /**
-   *
-   */
   constructor(props: Readonly<ICardProps>) {
     super(props);
     this.state = {
@@ -23,6 +21,7 @@ export default class Card extends React.Component<ICardProps, ICardState> {
       isHovering: false
     };
   }
+
   public render() {
     return (
       <div className="card" onClick={this.props.onClick} onMouseEnter={this.toggleHoverState} onMouseLeave={this.toggleHoverState}>
