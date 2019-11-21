@@ -1,5 +1,8 @@
 import * as React from "react";
 import Card, { ICardProps } from "../card/Card";
+import { Input, Divider, Button } from "antd";
+import "./CreatePage.scss";
+import Title from "antd/lib/typography/Title";
 
 const CreatePage = () => {
     const [cards, setCards] = React.useState<Array<ICardProps>>([]);
@@ -18,6 +21,8 @@ const CreatePage = () => {
                 onClick: () => alert("You clicked my card") // TODO: Remove a card onClick?  
             }
 
+            setNativeWord("");
+            setForeignWord("");
             setCards(prevCards => [...prevCards, newCard]);
         }
         else {
@@ -35,15 +40,13 @@ const CreatePage = () => {
 
     // TODO: Make this form prettier
     return <>
-        <label>
-            Polish:
-      <input type="text" value={nativeWord} onChange={handleOnNativeWordChange} />
-        </label>
-        <label>
-            English:
-      <input type="text" value={foreignWord} onChange={handleOnForeignWordChange} />
-        </label>
-        <button type="button" onClick={addCard}>Add</button>
+        <div>
+            <Title> Create a new set </Title>
+            <Input placeholder="Native word" value={nativeWord} onChange={handleOnNativeWordChange} />
+            <Input placeholder="Foreign word" value={foreignWord} onChange={handleOnForeignWordChange} />
+            <Button onClick={addCard} icon="plus">Add</Button>
+        </div>
+        <Divider />
         {cards && renderCards()}
     </>
 }

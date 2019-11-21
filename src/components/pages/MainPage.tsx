@@ -34,11 +34,11 @@ const MainPage = () => {
                 </div>
                 <Menu defaultSelectedKeys={["1"]} mode="inline" className="menu" >
                     <Menu.Item className="menu" onClick={goHome}>
-                        <Icon type="pie-chart" />
+                        <Icon type="home" />
                         <span>Home</span>
                     </Menu.Item>
                     <Menu.Item className="menu" onClick={redirectToCreateNewSet}>
-                        <Icon type="pie-chart" />
+                        <Icon type="plus" />
                         <span>Create</span>
                     </Menu.Item>
                 </Menu>
