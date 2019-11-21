@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Card, { ICardProps } from './Card';
+import * as React from "react";
+import Card, { ICardProps } from "../card/Card";
 
 const CreatePage = () => {
     const [cards, setCards] = React.useState<Array<ICardProps>>([]);
@@ -32,7 +32,7 @@ const CreatePage = () => {
     const handleOnForeignWordChange = (event: { target: { value: React.SetStateAction<string | undefined>; }; }) => {
         setForeignWord(event.target.value as string);
     }
-    
+
     // TODO: Make this form prettier
     return <>
         <label>
