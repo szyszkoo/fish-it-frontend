@@ -1,13 +1,16 @@
 import * as React from "react";
 import Card, { ICardProps } from "../card/Card";
-import { Input, Divider, Button } from "antd";
+import { Input, Divider, Button, Select, Icon } from "antd";
 import "./CreatePage.scss";
 import Title from "antd/lib/typography/Title";
 
 const CreatePage = () => {
+    const { Option } = Select;
     const [cards, setCards] = React.useState<Array<ICardProps>>([]);
     const [nativeWord, setNativeWord] = React.useState<string>("");
     const [foreignWord, setForeignWord] = React.useState<string>("");
+    const [nativeLanguage, setNativeLanguage] = React.useState<string>("");
+    const [foreignLanguage, setForeignLanguage] = React.useState<string>("");
 
     const renderCards = () => {
         return cards.map((card, i) => <Card {...card} key={i} />);
@@ -38,10 +41,36 @@ const CreatePage = () => {
         setForeignWord(event.target.value as string);
     }
 
-    // TODO: Make this form prettier
+    const handleOnNativeLanguageChange = (value: string) => {
+        setNativeLanguage(value);
+     }    
+     const handleOnForeignLanguageChange = (value: string) => {
+        setForeignLanguage(value);
+     }
+
+    // TODO: Make this form prettier, extract css, handle on "create set"
     return <>
-        <div>
             <Title> Create a new set </Title>
+            <Divider />
+        <div>
+            <h2>Select languages</h2>
+            <Select onChange={handleOnNativeLanguageChange} style={{ width: 200 }} placeholder="Native language">
+                <Option value="en">English</Option>
+                <Option value="de">German</Option>
+                <Option value="pl">Polish</Option>
+                <Option value="es">Spanish</Option>
+            </Select>
+            <Icon type="right"/>
+            <Select onChange={handleOnForeignLanguageChange} style={{ width: 200 }} placeholder="Foreign language">
+                <Option value="en">English</Option>
+                <Option value="de">German</Option>
+                <Option value="pl">Polish</Option>
+                <Option value="es">Spanish</Option>
+            </Select>
+        </div>
+        <Divider />
+        <h2>Add new flashcards</h2>
+        <div>
             <Input placeholder="Native word" value={nativeWord} onChange={handleOnNativeWordChange} />
             <Input placeholder="Foreign word" value={foreignWord} onChange={handleOnForeignWordChange} />
             <Button onClick={addCard} icon="plus">Add</Button>
