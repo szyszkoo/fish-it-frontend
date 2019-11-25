@@ -6,7 +6,7 @@ import logo from "./../../assets/img/logo_transparent.png"; // TODO: handle path
 import { Switch, Route, useHistory } from "react-router-dom";
 import Training from "./TrainingPage";
 import Home from "./HomePage";
-import CreatePage from "./CreatePage";
+import CreateSetPage from "./CreateSetPage/CreateSetPage";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -53,7 +53,7 @@ const MainPage = () => {
                     <Switch>
                         <Route exact path="/training" component={Training} />
                         <Route path="/home" component={Home} />
-                        <Route exact path="/create" component={CreatePage} />
+                        <Route exact path="/create" component={CreateSetPage} />
                     </Switch>
                 </Content>
                 <Footer style={{ textAlign: "center" }}>Fishit ©2019 created by Simpleton</Footer>
