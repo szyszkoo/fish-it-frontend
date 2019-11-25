@@ -119,7 +119,7 @@ const CreateSetPage = () => {
 
         setInfoMessage(infoMessages);
 
-        return (!!nativeWord && !!foreignWord && !!nativeLanguage && !!foreignLanguage && !!title && cards.length > 0);
+        return (!!nativeLanguage && !!foreignLanguage && !!title && cards.length > 0);
     }
 
     React.useEffect(() => {
