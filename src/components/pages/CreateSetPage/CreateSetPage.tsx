@@ -49,26 +49,6 @@ const CreateSetPage = () => {
         }
     }
 
-    const handleOnNativeWordChange = (event: { target: { value: React.SetStateAction<string | undefined>; }; }) => {
-        setNativeWord(event.target.value as string);
-    }
-
-    const handleOnForeignWordChange = (event: { target: { value: React.SetStateAction<string | undefined>; }; }) => {
-        setForeignWord(event.target.value as string);
-    }
-
-    const handleOnNativeLanguageChange = (value: string) => {
-        setNativeLanguage(value);
-    }
-
-    const handleOnForeignLanguageChange = (value: string) => {
-        setForeignLanguage(value);
-    }
-
-    const handleOnTitleChange = (event: { target: { value: React.SetStateAction<string | undefined>; }; }) => {
-        setTitle(event.target.value as string);
-    }
-
     const clearInfoMessages = () => {
         (nativeWord && foreignWord && infoMessage.wordInfo) && setInfoMessage({ ...infoMessage, wordInfo: "" });
         (nativeLanguage && foreignLanguage && infoMessage.languageInfo) && setInfoMessage({ ...infoMessage, languageInfo: "" });
@@ -123,6 +103,7 @@ const CreateSetPage = () => {
     }
 
     React.useEffect(() => {
+        console.log(nativeWord);
         clearInfoMessages();
     })
 
@@ -132,20 +113,20 @@ const CreateSetPage = () => {
         <div>
             <h2>Your set's title</h2>
             {infoMessage.titleInfo && <Alert message={infoMessage.titleInfo} type="info" showIcon />}
-            <Input placeholder="Set's title" value={title} onChange={handleOnTitleChange} />
+            <Input placeholder="Set's title" value={title} onChange={(event) => setTitle(event.target.value as string)} />
         </div>
         <Divider />
         <div>
             <h2>Select languages</h2>
             {infoMessage.languageInfo && <Alert message={infoMessage.languageInfo} type="info" showIcon />}
-            <Select onChange={handleOnNativeLanguageChange} style={{ width: 200 }} placeholder="Native language">
+            <Select onChange={(value: string) => setNativeLanguage(value)} style={{ width: 200 }} placeholder="Native language">
                 <Option value="en">English</Option>
                 <Option value="de">German</Option>
                 <Option value="pl">Polish</Option>
                 <Option value="es">Spanish</Option>
             </Select>
             <Icon type="right" />
-            <Select onChange={handleOnForeignLanguageChange} style={{ width: 200 }} placeholder="Foreign language">
+            <Select onChange={(value: string) => setForeignLanguage(value)} style={{ width: 200 }} placeholder="Foreign language">
                 <Option value="en">English</Option>
                 <Option value="de">German</Option>
                 <Option value="pl">Polish</Option>
@@ -156,8 +137,8 @@ const CreateSetPage = () => {
         <h2>Add new flashcards</h2>
         {infoMessage.wordInfo && <Alert message={infoMessage.wordInfo} type="info" showIcon />}
         <div>
-            <Input placeholder="Native word" value={nativeWord} onChange={handleOnNativeWordChange} />
-            <Input placeholder="Foreign word" value={foreignWord} onChange={handleOnForeignWordChange} />
+            <Input placeholder="Native word" value={nativeWord} onChange={(event) => setNativeWord(event.target.value as string)} />
+            <Input placeholder="Foreign word" value={foreignWord} onChange={(event) => setNativeWord(event.target.value as string)} />
             <Button onClick={addCard} icon="plus">Add</Button>
         </div>
         <Divider />
