@@ -1,0 +1,36 @@
+@import "./../../../assets/styles/colors";
+@import "./../../../assets/styles/fonts";
+
+.login-form {
+  font-family: $defaultFont;
+  font-size: 30px;
+  margin: 70px auto 0px auto;
+  background: #fdfdfd;
+  border: 1px solid #b5d8d5;
+  padding: 30px;
+  // width: 500px;
+
+  display: grid;
+  grid-template-columns: 200px 50px 200px;
+}
+
+.item-a {
+  .login-form-button {
+    display: block;
+    width: 200px;
+    background: $bluePastelDark;
+    border: $bluePastelDark;
+  }
+  grid-column-start: 1;
+  .login-form-button {
+    display: block;
+    width: 200px;
+    background: $bluePastelDark;
+    border: $bluePastelDark;
+  }
+}
+
+.item-b {
+  grid-column-start: 3;
+  font-size: 16px;
+}

@@ -7,6 +7,7 @@ import { Switch, Route, useHistory } from "react-router-dom";
 import Training from "./TrainingPage";
 import Home from "./HomePage";
 import CreateSetPage from "./CreateSetPage/CreateSetPage";
+import LoginPage from "./login/LoginPage";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -20,6 +21,10 @@ const MainPage = () => {
 
     const goHome = () => {
         history.push("/home");
+    }
+
+    const goSignIn = () => {
+        history.push("/signIn")
     }
 
     const redirectToCreateNewSet = () => {
@@ -45,15 +50,20 @@ const MainPage = () => {
             </Sider>
             <Layout>
                 <Header className="mainHeader" >
-                    <p className="mainHeaderDescription">
-                        My awesome site
-                            </p>
+                    {/* <span className="mainHeaderDescription">
+                        My awesome siteeee
+                    </span> */}
+                    <span className="login-menu">
+                        <span onClick={goSignIn}>Sign in</span>
+                        <span className="bordered">Sign up</span>
+                    </span>
                 </Header>
                 <Content style={{ margin: "16px 16px" }}>
                     <Switch>
                         <Route exact path="/training" component={Training} />
                         <Route path="/home" component={Home} />
                         <Route exact path="/create" component={CreateSetPage} />
+                        <Route exact path="/signIn" component={LoginPage} />
                     </Switch>
                 </Content>
                 <Footer style={{ textAlign: "center" }}>Fishit ©2019 created by Simpleton</Footer>
