@@ -3,16 +3,25 @@ import { Layout, Form, Input, Icon, Button } from 'antd';
 import 'antd/dist/antd.css';
 import './LoginPage.scss';
 import { authenticationService } from 'src/services/authentication.service';
+import { useHistory } from 'react-router-dom';
+import { User } from 'src/model/user';
 const { } = Layout;
 
 const LoginPage = () => {
 
     const [username, setUsername] = React.useState<string>("");
     const [password, setPassword] = React.useState<string>("");
+    let history = useHistory();
 
-
-    const submit = async (username: string, password: string) => {
+    const userSubmit = async (username: string, password: string) => {
+        authenticationService.userChange.subscribe((user: User) => {
+            history.push('/home');
+        })
         authenticationService.login(username, password);
+    }
+
+    const goSignUp = () => {
+        history.push('/SignUp');
     }
 
     const handleOnUsernameChange = (event: { target: { value: React.SetStateAction<string | undefined>; }; }) => {
@@ -22,6 +31,8 @@ const LoginPage = () => {
     const handleOnPasswordChange = (event: { target: { value: React.SetStateAction<string | undefined>; }; }) => {
         setPassword(event.target.value as string);
     }
+
+
 
     return (
         <Layout>
@@ -47,12 +58,12 @@ const LoginPage = () => {
                         </Form.Item>
                         <Form.Item>
                             <Button
-                                onClick={() => submit(username, password)}
-                                type="primary" htmlType="submit" className="login-form-button">
+                                onClick={() => userSubmit(username, password)}
+                                type="primary" className="login-form-button">
                                 Log in
                         </Button>
                             <span>
-                                Or <a href="">register now!</a>
+                                Or <a onClick={() => goSignUp()}>register now!</a>
                             </span>
                         </Form.Item>
                     </Form>

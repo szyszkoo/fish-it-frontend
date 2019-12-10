@@ -1,28 +1,39 @@
 import { Subject } from 'rxjs'
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { axiosInstance } from 'src/interceptors/interceptor';
 import { User } from 'src/model/user';
 
-const currentUserTokenSubject = new Subject<string>();
-let currentUser: User;
-const login = (username: string, password: string) => {
 
+const currentUserSubject = new Subject<User>();
+let currentUser: User;
+let currentInterceptor: number;
+const login = (username: string, password: string) => {
     const basicToken = `Basic ${btoa(`${username}:${password}`)}`;
     axiosInstance.get(`/user`, {
         headers: {
             'Authorization': basicToken
         }
     }).then(((user: AxiosResponse<User>) => {
-        currentUserTokenSubject.next(basicToken);
-        axiosInstance.interceptors.request.use((config) => {
+        currentUserSubject.next(user.data);
+        currentInterceptor = axiosInstance.interceptors.request.use((config) => {
             config.headers.authorization = basicToken
             return config;
         });
+        console.log(currentInterceptor);
         currentUser = user.data;
     }));
 }
 
+
+const logout = () => {
+    axiosInstance.interceptors.request.eject(currentInterceptor);
+    currentUserSubject.next(undefined);
+    currentUser = {} as User;
+    currentInterceptor = -1;
+};
+
 export const authenticationService = {
     login,
-    userToken: currentUserTokenSubject.asObservable()
+    logout,
+    userChange: currentUserSubject.asObservable()
 }
