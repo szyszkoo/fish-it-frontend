@@ -9,7 +9,7 @@ let currentUser: User;
 let currentInterceptor: number;
 const login = (username: string, password: string) => {
     const basicToken = `Basic ${btoa(`${username}:${password}`)}`;
-    axiosInstance.get(`/user`, {
+    return axiosInstance.get(`/user`, {
         headers: {
             'Authorization': basicToken
         }
@@ -19,7 +19,6 @@ const login = (username: string, password: string) => {
             config.headers.authorization = basicToken
             return config;
         });
-        console.log(currentInterceptor);
         currentUser = user.data;
     }));
 }
