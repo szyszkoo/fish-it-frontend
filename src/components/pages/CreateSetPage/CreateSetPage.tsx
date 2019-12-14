@@ -73,8 +73,16 @@ const CreateSetPage = () => {
             name: title,
             fiszki: fiszki
         };
-        // TODO: post the set 
+
+        const request = new XMLHttpRequest();
+        request.addEventListener("load", () => console.log(request.responseText));
+        request.open("POST", "https://simpletons-backend.herokuapp.com/category");
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        request.setRequestHeader("Authorization", "Basic " + btoa("eweltol:ewelina"));
+        request.send(JSON.stringify(set));
+        
         console.log(set);
+        console.log(JSON.stringify(set));
     }
 
     const validateForm = (): boolean => {
@@ -103,7 +111,6 @@ const CreateSetPage = () => {
     }
 
     React.useEffect(() => {
-        console.log(nativeWord);
         clearInfoMessages();
     })
 
@@ -138,7 +145,7 @@ const CreateSetPage = () => {
         {infoMessage.wordInfo && <Alert message={infoMessage.wordInfo} type="info" showIcon />}
         <div>
             <Input placeholder="Native word" value={nativeWord} onChange={(event) => setNativeWord(event.target.value as string)} />
-            <Input placeholder="Foreign word" value={foreignWord} onChange={(event) => setNativeWord(event.target.value as string)} />
+            <Input placeholder="Foreign word" value={foreignWord} onChange={(event) => setForeignWord(event.target.value as string)} />
             <Button onClick={addCard} icon="plus">Add</Button>
         </div>
         <Divider />
