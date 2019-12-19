@@ -4,7 +4,7 @@ import "antd/dist/antd.css";
 import "./MainPage.scss";
 import logo from "./../../assets/img/logo_transparent.png"; // TODO: handle paths
 import { Switch, Route, useHistory } from "react-router-dom";
-import Training from "./TrainingPage";
+import Training from "./TrainingPage/TrainingPage";
 import Home from "./HomePage";
 import CreateSetPage from "./CreateSetPage/CreateSetPage";
 
@@ -41,13 +41,17 @@ const MainPage = () => {
                         <Icon type="plus" />
                         <span>Create</span>
                     </Menu.Item>
+                    <Menu.Item className="menu" onClick={() => history.push("/training")}>
+                        <Icon type="trophy" />
+                        <span>Train</span>
+                    </Menu.Item>
                 </Menu>
             </Sider>
             <Layout>
                 <Header className="mainHeader" >
                     <p className="mainHeaderDescription">
                         My awesome site
-                            </p>
+                    </p>
                 </Header>
                 <Content style={{ margin: "16px 16px" }}>
                     <Switch>

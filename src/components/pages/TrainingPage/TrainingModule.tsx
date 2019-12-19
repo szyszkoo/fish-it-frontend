@@ -1,0 +1,62 @@
+import * as React from "react";
+import IFiszka from "src/model/IFiszka";
+import ISet from "src/model/ISet";
+import Card from "src/components/card/Card";
+import { Input, Button } from "antd";
+import Title from "antd/lib/typography/Title";
+import { Language } from "src/enums/Language";
+
+export interface ITrainingModuleProps {
+    set: ISet;
+}
+const TrainingModule = (props: ITrainingModuleProps) => {
+    const [allFiszki, setAllFiszki] = React.useState<IFiszka[]>(props.set.fiszki.slice(1));
+    const [currentFiszka, setCurrentFiszka] = React.useState<IFiszka | undefined>(props.set.fiszki[0]);
+    const [fiszkitoRepeat, setFiszkiToRepeat] = React.useState<IFiszka[]>([]);
+    const [userAnswer, setUserAnswer] = React.useState<string>("");
+    const [isTrainingOver, setIsTrainingOver] = React.useState<boolean>(false);
+
+    const checkUserAnswer = () => {
+        if (!currentFiszka) {
+            console.log("Some error occured - apparently there is no active fiszka :/");
+            
+            return;
+        }
+        if (userAnswer === currentFiszka.target_text) {
+            console.log("Correct!!!!!");
+        }
+        else {
+            setFiszkiToRepeat(prevFiszki => [...prevFiszki, currentFiszka]);
+            console.log("Wrong answer! Correct answer: ", currentFiszka.target_text);
+        }
+
+        if (allFiszki.length > 0) {
+            const currentFiszka = allFiszki[0];
+            setAllFiszki(prev => prev.slice(1));
+            setCurrentFiszka(currentFiszka);
+
+            return;
+        }
+
+        if (fiszkitoRepeat.length > 0) {
+            const currentFiszka = fiszkitoRepeat[0];
+            setFiszkiToRepeat(prev => prev.slice(1));
+            setCurrentFiszka(currentFiszka);
+
+            return;
+        }
+
+        setIsTrainingOver(true);
+    }
+
+    return <>
+        {(currentFiszka && !isTrainingOver) && <>
+            <Card shortDescription={currentFiszka.src_text} description={currentFiszka.target_text} />
+            <Input placeholder="Your answer" value={userAnswer} onChange={(event) => setUserAnswer(event.target.value as string)} />
+            <Button onClick={checkUserAnswer} icon="plus">Check</Button>
+        </>}
+        {isTrainingOver && <Title> Training finished, contgrats!!!</Title>}
+    </>
+}
+
+export default TrainingModule;

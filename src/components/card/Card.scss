@@ -12,9 +12,9 @@
   &:hover {
     background-color: $pinkPastelDark;
   }
-  &:hover .cardDescription{
-    top: 30%;
-  }
+  // &:hover .cardDescription{
+  //   top: 30%;
+  // }
 }
 .cardDescription {
   font-family: $defaultFont;

@@ -1,8 +1,9 @@
 import * as React from "react";
-import Card, { ICardProps } from "../../card/Card";
+import Card from "../../card/Card";
 import { Input, Divider, Button, Select, Icon, Alert } from "antd";
 import "./CreateSetPage.scss";
 import Title from "antd/lib/typography/Title";
+import ICardProps from "src/components/card/ICardProps";
 
 interface InfoMessages {
     flashCardInfo: string;
