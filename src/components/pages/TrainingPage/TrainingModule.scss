@@ -1,0 +1,36 @@
+.ant-input {
+    width: 400px;
+    margin: 3px 8px 3px;
+    // position: relative;
+    // top: 50px;
+    display: inline-block;
+}
+
+.ant-alert {
+    margin: 3px 8px 3px;
+}
+
+.ant-select {
+    margin: 3px 8px 3px;
+}
+
+.ant-btn {
+    margin: 3px 8px 3px;
+    display: inline-block;
+    // position: relative;
+    // top: 50px;
+}
+
+.currentFiszka {
+    // position: absolute;
+    // display: inline-block;
+    font-size: 90px;
+}
+
+.centeredContent {
+    // text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}

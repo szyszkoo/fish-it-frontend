@@ -4,6 +4,7 @@ import { Language } from "src/enums/Language";
 import Card from "src/components/card/Card";
 import ApiService from "src/services/ApiService";
 import TrainingModule from "./TrainingModule";
+import Title from "antd/lib/typography/Title";
 
 export interface ITrainingProps {
   description: string;
@@ -86,7 +87,7 @@ const Training = () => {
 
   const onSetSelected = async (setId: number, setName: string) => {
     const fiszkis = await apiService.getFiszkiBySetId(setId);
-    const selectedSet : ISet = {
+    const selectedSet: ISet = {
       id: setId,
       name: setName,
       fiszki: fiszkis
@@ -96,11 +97,16 @@ const Training = () => {
 
   return (
     <>
-      <h1> Choose set you want to skill up </h1>
       {activeSet
-        ? <TrainingModule set={activeSet} />
-        : sets.map(set => <Card shortDescription={set.name} key={set.id} onClick={() => onSetSelected(set.id, set.name)} />)}
-
+        ? <>
+          <Title> Translate the word below </Title>
+        <TrainingModule set={activeSet} />
+        </>
+        : <>
+          <Title> Choose set you want to skill up </Title>
+          {sets.map(set => <Card shortDescription={set.name} key={set.id} onClick={() => onSetSelected(set.id, set.name)} />)}
+        </>
+      }
     </>
   )
 

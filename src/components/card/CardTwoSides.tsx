@@ -8,7 +8,7 @@ const CardTwoSides = (props: ICardProps) => {
     }
     
     return <>
-        <div className="card" onClick={props.onClick} onMouseEnter={toggleHoverState} onMouseLeave={toggleHoverState}>
+        <div className="activeCard" onClick={props.onClick} onMouseEnter={toggleHoverState} onMouseLeave={toggleHoverState}>
             <p className="cardDescription">
                 {isHovering ? props.description : props.shortDescription}
             </p>

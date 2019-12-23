@@ -4,6 +4,7 @@ import { Input, Divider, Button, Select, Icon, Alert } from "antd";
 import "./CreateSetPage.scss";
 import Title from "antd/lib/typography/Title";
 import ICardProps from "src/components/card/ICardProps";
+import { CardType } from "src/enums/CardType";
 
 interface InfoMessages {
     flashCardInfo: string;
@@ -29,7 +30,7 @@ const CreateSetPage = () => {
     });
 
     const renderCards = () => <>
-        {cards.map((card, i) => <Card {...card} key={i} />)}
+        {cards.map((card, i) => <Card {...card} cardType={CardType.TwoSides} key={i} />)}
         <Divider />
     </>;
 

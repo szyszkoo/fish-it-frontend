@@ -5,4 +5,5 @@ export default interface ICardProps {
     shortDescription: string;
     onClick?: any;
     cardType?: CardType;
+    isActive?: boolean;
   }

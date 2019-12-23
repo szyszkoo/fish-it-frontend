@@ -4,7 +4,7 @@ import ISet from "src/model/ISet";
 import Card from "src/components/card/Card";
 import { Input, Button } from "antd";
 import Title from "antd/lib/typography/Title";
-import { Language } from "src/enums/Language";
+import "./TrainingModule.scss";
 
 export interface ITrainingModuleProps {
     set: ISet;
@@ -50,11 +50,11 @@ const TrainingModule = (props: ITrainingModuleProps) => {
     }
 
     return <>
-        {(currentFiszka && !isTrainingOver) && <>
-            <Card shortDescription={currentFiszka.src_text} description={currentFiszka.target_text} />
-            <Input placeholder="Your answer" value={userAnswer} onChange={(event) => setUserAnswer(event.target.value as string)} />
-            <Button onClick={checkUserAnswer} icon="plus">Check</Button>
-        </>}
+        {(currentFiszka && !isTrainingOver) && <div className="centeredContent">
+            <div className="currentFiszka"><p>{currentFiszka.src_text}</p> </div>
+            <div><Input placeholder="Your answer" value={userAnswer} onChange={(event) => setUserAnswer(event.target.value as string)} /></div>
+            <div><Button onClick={checkUserAnswer} icon="plus">Check</Button></div>
+        </div>}
         {isTrainingOver && <Title> Training finished, contgrats!!!</Title>}
     </>
 }

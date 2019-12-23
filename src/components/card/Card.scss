@@ -9,12 +9,22 @@
   float: left;
   border-radius: 20px;
   transition: 0.5s ease;
+
+}
+.activeCard {
+  margin: 15px;
+  height: 250px;
+  width: 250px;
+  background-color: $pinkPastel;
+  float: left;
+  border-radius: 20px;
+  transition: 0.5s ease;
   &:hover {
     background-color: $pinkPastelDark;
   }
-  // &:hover .cardDescription{
-  //   top: 30%;
-  // }
+    &:hover .cardDescription{
+    top: 40%;
+  }
 }
 .cardDescription {
   font-family: $defaultFont;
