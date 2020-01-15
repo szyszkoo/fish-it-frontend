@@ -88,9 +88,6 @@ const MainPage = () => {
             </Sider>
             <Layout>
                 <Header className="mainHeader" >
-                    <p className="mainHeaderDescription">
-                        My awesome site
-                    </p>
                     {!isLoggedUser && <LoginButtons />}
                     {isLoggedUser && <LoggedUser />}
                 </Header>
