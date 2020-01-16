@@ -1,7 +1,7 @@
 import IFiszka from "./IFiszka";
 
 export default interface ISet {
-    id: number;
+    id?: number;
     name: string;
     fiszki: IFiszka[];
 }

@@ -5,6 +5,7 @@ import Card from "src/components/card/Card";
 import { Input, Button } from "antd";
 import Title from "antd/lib/typography/Title";
 import "./TrainingModule.scss";
+import { notificationService } from "src/services/notification.service";
 
 export interface ITrainingModuleProps {
     set: ISet;
@@ -18,16 +19,16 @@ const TrainingModule = (props: ITrainingModuleProps) => {
 
     const checkUserAnswer = () => {
         if (!currentFiszka) {
-            console.log("Some error occured - apparently there is no active fiszka :/");
+            notificationService.error("Some error occured - apparently there is no active fiszka :/");
             
             return;
         }
         if (userAnswer === currentFiszka.target_text) {
-            console.log("Correct!!!!!");
+            notificationService.success("Correct answer!");
         }
         else {
             setFiszkiToRepeat(prevFiszki => [...prevFiszki, currentFiszka]);
-            console.log("Wrong answer! Correct answer: ", currentFiszka.target_text);
+            notificationService.warning("Wrong answer! Correct answer: " + currentFiszka.target_text);
         }
 
         if (allFiszki.length > 0) {

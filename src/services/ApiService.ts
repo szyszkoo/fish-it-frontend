@@ -1,55 +1,60 @@
 import ISet from "src/model/ISet";
 import IFiszka from "src/model/IFiszka";
 import { Language } from "src/enums/Language";
+import { axiosInstance } from "src/interceptors/interceptor";
 
 const ApiService = () => {
-    const getAllPublicSets = () => {
-        // TODO: get sets
+  const mapToFiszka = (data: { source_text: any; source_language: string; target_text: any; target_language: string; }): IFiszka => {
+    console.log(data);
+
+    return {
+      src_text: data.source_text,
+      src_lang: data.source_language,
+      target_text: data.target_text,
+      target_lang: data.target_language
+    } as IFiszka
+  }
+  const getAllPublicSets = async (): Promise<ISet[]> => {
+    const rawData = await axiosInstance.get(`/category/public`);
+    return rawData.data.map((element: { id: any; name: any; }) => {
+      return {
+        id: element.id,
+        name: element.name,
+        fiszki: []
+      } as ISet;
+    })
+  }
+
+  const getAllUserPrivateSets = () => {
+
+  }
+
+  const getFiszkiBySetId = async (setId: number): Promise<IFiszka[]> => {
+    const rawData = await axiosInstance.get(`/category/public/${setId}/fiszki`);
+    console.log(rawData);
+    
+    return rawData.data.map(mapToFiszka);
+  }
+
+  const addSet = async (setData: ISet) => {
+    try {
+      const axiosInst = axiosInstance;
+      axiosInst.defaults.headers.common["Authorization"] =  "Basic " + btoa("eweltol:ewelina"); // TODO: do not hardcode it that way :/
+      axiosInst.defaults.headers.common["Content-Type"] = "application/json;charset=UTF-8";
+      axiosInst.post(`/category/`, setData);
+      
     }
-
-    const getAllUserPrivateSets = () => {
-
+    catch (error) {
+      console.log("Could not add set");
     }
+  }
 
-    const getFiszkiBySetId = async (setId: number) : Promise<IFiszka[]> => {
-        console.log("getting your fiszkis....");
-        const fiszki: IFiszka[]= [{
-            src_text: "Source text 1",
-            src_lang: Language.es,
-            target_text: "Target text 1",
-            target_lang: Language.en
-          },
-          {
-            src_text: "Source text 2",
-            src_lang: Language.es,
-            target_text: "Target text 2",
-            target_lang: Language.en
-          },
-          {
-            src_text: "Source text 3",
-            src_lang: Language.es,
-            target_text: "Target text 3",
-            target_lang: Language.en
-          },
-          {
-            src_text: "Source text 4",
-            src_lang: Language.es,
-            target_text: "Target text 4",
-            target_lang: Language.en
-          }];
-
-          return Promise.resolve(fiszki);
-    }
-
-    const addSet = (setData: ISet) => {
-
-    }
-
-    return { 
-        getAllPublicSets, 
-        getAllUserPrivateSets, 
-        getFiszkiBySetId, 
-        addSet };
+  return {
+    getAllPublicSets,
+    getAllUserPrivateSets,
+    getFiszkiBySetId,
+    addSet
+  };
 
 }
 

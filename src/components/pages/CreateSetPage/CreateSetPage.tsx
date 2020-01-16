@@ -5,6 +5,9 @@ import "./CreateSetPage.scss";
 import Title from "antd/lib/typography/Title";
 import ICardProps from "src/components/card/ICardProps";
 import { CardType } from "src/enums/CardType";
+import ApiService from "src/services/ApiService";
+import ISet from "src/model/ISet";
+import IFiszka from "src/model/IFiszka";
 
 interface InfoMessages {
     flashCardInfo: string;
@@ -15,6 +18,7 @@ interface InfoMessages {
 
 //TODO: extract some logic to the CreateSetPageService.ts file c:
 const CreateSetPage = () => {
+    const apiService = ApiService();
     const { Option } = Select;
     const [cards, setCards] = React.useState<Array<ICardProps>>([]);
     const [nativeWord, setNativeWord] = React.useState<string>("");
@@ -69,20 +73,21 @@ const CreateSetPage = () => {
                 src_lang: nativeLanguage,
                 target_text: card.description,
                 target_lang: foreignLanguage
-            }
+            } as IFiszka
         });
-        const set = {
+        const set : ISet = {
             name: title,
             fiszki: fiszki
         };
 
-        const request = new XMLHttpRequest();
-        request.addEventListener("load", () => console.log(request.responseText));
-        request.open("POST", "https://simpletons-backend.herokuapp.com/category");
-        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        request.setRequestHeader("Authorization", "Basic " + btoa("eweltol:ewelina"));
-        request.send(JSON.stringify(set));
-        
+        // const request = new XMLHttpRequest();
+        // request.addEventListener("load", () => console.log(request.responseText));
+        // request.open("POST", "https://simpletons-backend.herokuapp.com/category");
+        // request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        // request.setRequestHeader("Authorization", "Basic " + btoa("eweltol:ewelina"));
+        // request.send(JSON.stringify(set));
+        apiService.addSet(set);
+
         console.log(set);
         console.log(JSON.stringify(set));
     }

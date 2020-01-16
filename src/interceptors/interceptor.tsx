@@ -5,8 +5,3 @@ export const baseConfig = {
 } as AxiosRequestConfig;
 
 export const axiosInstance = axios.create(baseConfig);
-
-
-
-
-
