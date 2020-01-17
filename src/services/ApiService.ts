@@ -39,9 +39,7 @@ const ApiService = () => {
   const addSet = async (setData: ISet) => {
     try {
       const axiosInst = axiosInstance;
-      axiosInst.defaults.headers.common["Authorization"] =  "Basic " + btoa("eweltol:ewelina"); // TODO: do not hardcode it that way :/
-      axiosInst.defaults.headers.common["Content-Type"] = "application/json;charset=UTF-8";
-      axiosInst.post(`/category/`, setData);
+      axiosInst.post(`/category`, setData);
       
     }
     catch (error) {
