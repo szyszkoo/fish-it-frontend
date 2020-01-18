@@ -23,36 +23,6 @@ const TrainingModule = (props: ITrainingModuleProps) => {
         }
     }
 
-    // const getNextFiszka = () => {
-
-    // }
-
-    // const handleCorrectAnswer = () => {
-    //     if (!currentFiszka) {
-    //         notificationService.error("Some error occured - apparently there is no active fiszka");
-            
-    //         return;
-    //     }
-
-        
-    //     getNextFiszka();
-    // }  
-
-
-
-    // const handleWrongAnswer = () => {
-    //     if (!currentFiszka) {
-    //         notificationService.error("Some error occured - apparently there is no active fiszka");
-            
-    //         return;
-    //     }
-        
-    //     getNextFiszka();
-    // }
-
-
-
-
     const checkUserAnswer = () => {
         if (!currentFiszka) {
             notificationService.error("Some error occured - apparently there is no active fiszka");
