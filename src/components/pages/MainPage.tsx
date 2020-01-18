@@ -76,10 +76,10 @@ const MainPage = () => {
                         <Icon type="home" />
                         <span>Home</span>
                     </Menu.Item>
-                    <Menu.Item className="menu" onClick={redirectToCreateNewSet}>
+                    {isLoggedUser && <Menu.Item className="menu" onClick={redirectToCreateNewSet}>
                         <Icon type="plus" />
                         <span>Create</span>
-                    </Menu.Item>
+                    </Menu.Item>}
                     <Menu.Item className="menu" onClick={() => history.push("/training")}>
                         <Icon type="trophy" />
                         <span>Train</span>

@@ -17,32 +17,82 @@ const TrainingModule = (props: ITrainingModuleProps) => {
     const [userAnswer, setUserAnswer] = React.useState<string>("");
     const [isTrainingOver, setIsTrainingOver] = React.useState<boolean>(false);
 
+    const handleSubmit = (event: React.KeyboardEvent<any>) => {
+        if (event.key === "Enter") {
+            checkUserAnswer();
+        }
+    }
+
+    // const getNextFiszka = () => {
+
+    // }
+
+    // const handleCorrectAnswer = () => {
+    //     if (!currentFiszka) {
+    //         notificationService.error("Some error occured - apparently there is no active fiszka");
+            
+    //         return;
+    //     }
+
+        
+    //     getNextFiszka();
+    // }  
+
+
+
+    // const handleWrongAnswer = () => {
+    //     if (!currentFiszka) {
+    //         notificationService.error("Some error occured - apparently there is no active fiszka");
+            
+    //         return;
+    //     }
+        
+    //     getNextFiszka();
+    // }
+
+
+
+
     const checkUserAnswer = () => {
         if (!currentFiszka) {
-            notificationService.error("Some error occured - apparently there is no active fiszka :/");
+            notificationService.error("Some error occured - apparently there is no active fiszka");
             
             return;
         }
-        if (userAnswer === currentFiszka.target_text) {
+
+        const isCorrectAnswer = userAnswer === currentFiszka.target_text;
+        let nextFiszka: IFiszka = currentFiszka;
+        
+        if (isCorrectAnswer) {
             notificationService.success("Correct answer!");
         }
         else {
-            setFiszkiToRepeat(prevFiszki => [...prevFiszki, currentFiszka]);
+            if (allFiszki.length > 0 || fiszkitoRepeat.length > 0) {
+                setFiszkiToRepeat(prevFiszki => [...prevFiszki, currentFiszka]);
+            }
             notificationService.warning("Wrong answer! Correct answer: " + currentFiszka.target_text);
         }
 
+        setUserAnswer("");
+
         if (allFiszki.length > 0) {
-            const currentFiszka = allFiszki[0];
+            nextFiszka = allFiszki[0];
             setAllFiszki(prev => prev.slice(1));
-            setCurrentFiszka(currentFiszka);
+            setCurrentFiszka(nextFiszka);
 
             return;
         }
 
         if (fiszkitoRepeat.length > 0) {
-            const currentFiszka = fiszkitoRepeat[0];
+            nextFiszka = fiszkitoRepeat[0];
             setFiszkiToRepeat(prev => prev.slice(1));
-            setCurrentFiszka(currentFiszka);
+            setCurrentFiszka(nextFiszka);
+
+            return;
+        }
+
+        if (!isCorrectAnswer) {
+            setCurrentFiszka(nextFiszka);
 
             return;
         }
@@ -53,10 +103,10 @@ const TrainingModule = (props: ITrainingModuleProps) => {
     return <>
         {(currentFiszka && !isTrainingOver) && <div className="centeredContent">
             <div className="currentFiszka"><p>{currentFiszka.src_text}</p> </div>
-            <div><Input placeholder="Your answer" value={userAnswer} onChange={(event) => setUserAnswer(event.target.value as string)} /></div>
-            <div><Button onClick={checkUserAnswer} icon="plus">Check</Button></div>
+            <div><Input placeholder="Your answer" value={userAnswer} onChange={(event) => setUserAnswer(event.target.value as string)} onKeyUp={handleSubmit}/></div>
+            <div><Button onClick={checkUserAnswer} icon="plus" >Check</Button></div>
         </div>}
-        {isTrainingOver && <Title> Training finished, contgrats!!!</Title>}
+        {isTrainingOver && <Title> Training finished, congrats!</Title>}
     </>
 }
 
