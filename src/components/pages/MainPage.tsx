@@ -93,7 +93,7 @@ const MainPage = () => {
                 </Header>
                 <Content style={{ margin: "16px 16px" }}>
                     <Switch>
-                        <Route exact path="/training" component={Training} />
+                        <Route exact path="/training" render={() => <Training isLoggedUser={isLoggedUser}/>} />
                         <Route path="/home" component={Home} />
                         <Route exact path="/create" component={CreateSetPage} />
                         <Route exact path="/signIn" component={LoginPage} />

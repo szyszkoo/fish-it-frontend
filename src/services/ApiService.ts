@@ -20,17 +20,27 @@ const ApiService = () => {
       return {
         id: element.id,
         name: element.name,
-        fiszki: []
+        fiszki: [],
+        isPublic: true
       } as ISet;
     })
   }
 
-  const getAllUserPrivateSets = () => {
-
+  const getAllUserPrivateSets = async(): Promise<ISet[]> => {
+    const rawData = await axiosInstance.get(`/category/private`);
+    return rawData.data.map((element: { id: any; name: any; }) => {
+      return {
+        id: element.id,
+        name: element.name,
+        fiszki: [],
+        isPublic: false
+      } as ISet;
+    })
   }
 
-  const getFiszkiBySetId = async (setId: number): Promise<IFiszka[]> => {
-    const rawData = await axiosInstance.get(`/category/public/${setId}/fiszki`);
+  const getFiszkiBySetId = async (setId: number, isPublic: boolean): Promise<IFiszka[]> => {
+    const accessibility = isPublic ? "public" : "private";
+    const rawData = await axiosInstance.get(`/category/${accessibility}/${setId}/fiszki`);
     console.log(rawData);
     
     return rawData.data.map(mapToFiszka);

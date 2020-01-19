@@ -77,17 +77,12 @@ const CreateSetPage = () => {
         });
         const set : ISet = {
             name: title,
-            fiszki: fiszki
+            fiszki: fiszki,
+            isPublic: false
         };
 
-        // const request = new XMLHttpRequest();
-        // request.addEventListener("load", () => console.log(request.responseText));
-        // request.open("POST", "https://simpletons-backend.herokuapp.com/category");
-        // request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        // request.setRequestHeader("Authorization", "Basic " + btoa("eweltol:ewelina"));
-        // request.send(JSON.stringify(set));
         apiService.addSet(set);
-
+        // TODO: handle on success 
         console.log(set);
         console.log(JSON.stringify(set));
     }
