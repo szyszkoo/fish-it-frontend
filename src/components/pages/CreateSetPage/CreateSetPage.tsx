@@ -1,8 +1,13 @@
 import * as React from "react";
-import Card, { ICardProps } from "../../card/Card";
+import Card from "../../card/Card";
 import { Input, Divider, Button, Select, Icon, Alert } from "antd";
 import "./CreateSetPage.scss";
 import Title from "antd/lib/typography/Title";
+import ICardProps from "src/components/card/ICardProps";
+import { CardType } from "src/enums/CardType";
+import ApiService from "src/services/ApiService";
+import ISet from "src/model/ISet";
+import IFiszka from "src/model/IFiszka";
 
 interface InfoMessages {
     flashCardInfo: string;
@@ -13,6 +18,7 @@ interface InfoMessages {
 
 //TODO: extract some logic to the CreateSetPageService.ts file c:
 const CreateSetPage = () => {
+    const apiService = ApiService();
     const { Option } = Select;
     const [cards, setCards] = React.useState<Array<ICardProps>>([]);
     const [nativeWord, setNativeWord] = React.useState<string>("");
@@ -28,7 +34,7 @@ const CreateSetPage = () => {
     });
 
     const renderCards = () => <>
-        {cards.map((card, i) => <Card {...card} key={i} />)}
+        {cards.map((card, i) => <Card {...card} cardType={CardType.TwoSides} key={i} />)}
         <Divider />
     </>;
 
@@ -49,26 +55,6 @@ const CreateSetPage = () => {
         }
     }
 
-    const handleOnNativeWordChange = (event: { target: { value: React.SetStateAction<string | undefined>; }; }) => {
-        setNativeWord(event.target.value as string);
-    }
-
-    const handleOnForeignWordChange = (event: { target: { value: React.SetStateAction<string | undefined>; }; }) => {
-        setForeignWord(event.target.value as string);
-    }
-
-    const handleOnNativeLanguageChange = (value: string) => {
-        setNativeLanguage(value);
-    }
-
-    const handleOnForeignLanguageChange = (value: string) => {
-        setForeignLanguage(value);
-    }
-
-    const handleOnTitleChange = (event: { target: { value: React.SetStateAction<string | undefined>; }; }) => {
-        setTitle(event.target.value as string);
-    }
-
     const clearInfoMessages = () => {
         (nativeWord && foreignWord && infoMessage.wordInfo) && setInfoMessage({ ...infoMessage, wordInfo: "" });
         (nativeLanguage && foreignLanguage && infoMessage.languageInfo) && setInfoMessage({ ...infoMessage, languageInfo: "" });
@@ -87,14 +73,18 @@ const CreateSetPage = () => {
                 src_lang: nativeLanguage,
                 target_text: card.description,
                 target_lang: foreignLanguage
-            }
+            } as IFiszka
         });
-        const set = {
+        const set : ISet = {
             name: title,
-            fiszki: fiszki
+            fiszki: fiszki,
+            isPublic: false
         };
-        // TODO: post the set 
+
+        apiService.addSet(set);
+        // TODO: handle on success 
         console.log(set);
+        console.log(JSON.stringify(set));
     }
 
     const validateForm = (): boolean => {
@@ -132,20 +122,20 @@ const CreateSetPage = () => {
         <div>
             <h2>Your set's title</h2>
             {infoMessage.titleInfo && <Alert message={infoMessage.titleInfo} type="info" showIcon />}
-            <Input placeholder="Set's title" value={title} onChange={handleOnTitleChange} />
+            <Input placeholder="Set's title" value={title} onChange={(event) => setTitle(event.target.value as string)} />
         </div>
         <Divider />
         <div>
             <h2>Select languages</h2>
             {infoMessage.languageInfo && <Alert message={infoMessage.languageInfo} type="info" showIcon />}
-            <Select onChange={handleOnNativeLanguageChange} style={{ width: 200 }} placeholder="Native language">
+            <Select onChange={(value: string) => setNativeLanguage(value)} style={{ width: 200 }} placeholder="Native language">
                 <Option value="en">English</Option>
                 <Option value="de">German</Option>
                 <Option value="pl">Polish</Option>
                 <Option value="es">Spanish</Option>
             </Select>
             <Icon type="right" />
-            <Select onChange={handleOnForeignLanguageChange} style={{ width: 200 }} placeholder="Foreign language">
+            <Select onChange={(value: string) => setForeignLanguage(value)} style={{ width: 200 }} placeholder="Foreign language">
                 <Option value="en">English</Option>
                 <Option value="de">German</Option>
                 <Option value="pl">Polish</Option>
@@ -156,8 +146,8 @@ const CreateSetPage = () => {
         <h2>Add new flashcards</h2>
         {infoMessage.wordInfo && <Alert message={infoMessage.wordInfo} type="info" showIcon />}
         <div>
-            <Input placeholder="Native word" value={nativeWord} onChange={handleOnNativeWordChange} />
-            <Input placeholder="Foreign word" value={foreignWord} onChange={handleOnForeignWordChange} />
+            <Input placeholder="Native word" value={nativeWord} onChange={(event) => setNativeWord(event.target.value as string)} />
+            <Input placeholder="Foreign word" value={foreignWord} onChange={(event) => setForeignWord(event.target.value as string)} />
             <Button onClick={addCard} icon="plus">Add</Button>
         </div>
         <Divider />
